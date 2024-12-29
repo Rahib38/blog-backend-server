@@ -44,7 +44,37 @@ const updateBlog = async (
   const result = await updateBlog.populate('author');
   return result;
 };
+const deleteBlog = async (
+  blogId: string,
+
+  loggerUser: JwtPayload,
+) => {
+  const checkBlogId = await Blog.findById(blogId).populate<{
+    author: { email: string; role: string };
+  }>('author');
+  if (!checkBlogId) {
+    throw new AppError(StatusCodes.BAD_GATEWAY, 'Blog not found!');
+  } else if (checkBlogId?.author?.email !== loggerUser?.email) {
+    throw new AppError(
+      StatusCodes.BAD_REQUEST,
+      'You are not authorized to update this blog',
+    );
+  } else if (checkBlogId?.isPublished === false) {
+    throw new AppError(
+      StatusCodes.BAD_REQUEST,
+      'You can not updated this blog.Blog already deleted',
+    );
+  }
+  await Blog.findByIdAndUpdate(
+    blogId,
+    { isPublished: false },
+    {
+      new: true,
+    },
+  );
+};
 export const BlogService = {
   createBlog,
   updateBlog,
+  deleteBlog,
 };

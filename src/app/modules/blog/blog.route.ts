@@ -8,5 +8,6 @@ const blogRouter = Router()
 
 blogRouter.post('/',auth('admin','user'), validateRequest(BlogValidation.createBlogValidation),BlogController.createBlog)
 blogRouter.patch('/:id',auth("user","admin"),validateRequest(BlogValidation.updateBlogValidation),BlogController.updateBlog)
+blogRouter.delete('/:id',auth("user","admin"),BlogController.deleteBlog)
 
 export default blogRouter
