@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { USER_ROLE } from './auth.interface';
 
 const loginValidationSchema = z.object({
   body: z.object({
@@ -9,3 +10,4 @@ const loginValidationSchema = z.object({
 export const AuthValiditon={
     loginValidationSchema
 }
+export type TUserRole = keyof typeof USER_ROLE

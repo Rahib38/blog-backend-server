@@ -1,7 +1,7 @@
+import bcrypt from 'bcrypt';
 import { model, Schema } from 'mongoose';
-import { TUser } from './user.interface';
-import bcrypt from 'bcrypt'
 import config from '../../config';
+import { TUser } from './user.interface';
 const userSchema = new Schema<TUser>(
   {
     name: {
@@ -11,9 +11,8 @@ const userSchema = new Schema<TUser>(
     },
     email: {
       type: String,
-      required: true,
-      trim: true,
       unique: true,
+      required: true,
     },
     password: {
       type: String,
@@ -28,7 +27,7 @@ const userSchema = new Schema<TUser>(
     },
     isBlocked: {
       type: Boolean,
-      default:false,
+      default: false,
       required: true,
     },
   },

@@ -3,6 +3,7 @@ import { Types } from 'mongoose';
 export type TBlog = {
   title: string;
   content: string;
-  author: Types.ObjectId;
+  _id: Types.ObjectId;
   isPublished: boolean;
+  author:Record<string,unknown>|undefined
 };
