@@ -12,7 +12,7 @@ app.use(cors());
 
 
 app.use('/api/auth',authRouter)
-app.use('/api',blogRouter)
+app.use('/api/blogs',blogRouter)
 app.use('/api/admin',adminRouter)
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");

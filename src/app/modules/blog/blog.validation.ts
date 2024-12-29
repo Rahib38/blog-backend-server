@@ -7,7 +7,14 @@ const createBlogValidation=z.object({
         // author:z.string()
     })
 })
+const updateBlogValidation=z.object({
+    body:z.object({
+        title:z.string().optional(),
+        content:z.string().optional(),
+        // author:z.string()
+    })
+})
 
 export const BlogValidation={
-    createBlogValidation
+    createBlogValidation,updateBlogValidation
 }

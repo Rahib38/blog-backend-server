@@ -6,6 +6,7 @@ import auth from "../../middlewares/auth";
 
 const blogRouter = Router()
 
-blogRouter.post('/blogs',auth('admin','user'), validateRequest(BlogValidation.createBlogValidation),BlogController.createBlog)
+blogRouter.post('/',auth('admin','user'), validateRequest(BlogValidation.createBlogValidation),BlogController.createBlog)
+blogRouter.patch('/:id',auth("user","admin"),validateRequest(BlogValidation.updateBlogValidation),BlogController.updateBlog)
 
 export default blogRouter
