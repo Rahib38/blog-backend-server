@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import { JwtPayload } from 'jsonwebtoken';
+import QueryBuilder from '../../builder/querybuilders';
 import AppError from '../../Errors/appError';
 import { TBlog } from './blog.interface';
 import Blog from './blog.model';
@@ -73,8 +74,21 @@ const deleteBlog = async (
     },
   );
 };
+
+const getBlogs = async (query: Record<string, unknown>) => {
+  const searchableFields = ['title', 'content'];
+  const blogs = new QueryBuilder(Blog.find().populate('author'), query)
+
+    .search(searchableFields)
+    .filter()
+    .sort();
+  const result = await blogs.modelQuery.select('_id title content author');
+
+  return result;
+};
 export const BlogService = {
   createBlog,
   updateBlog,
   deleteBlog,
+  getBlogs,
 };

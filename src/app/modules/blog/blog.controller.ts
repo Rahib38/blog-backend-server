@@ -29,23 +29,23 @@ const createBlog = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const updateBlog=catchAsync(async(req:Request,res:Response)=>{
-  const blogId=req.params.id
-  const payload=req.body
-  const authors = req?.user as JwtPayload
-  const result = await BlogService.updateBlog(blogId,payload,authors)
-  const { _id, title, content, author }=result
+const updateBlog = catchAsync(async (req: Request, res: Response) => {
+  const blogId = req.params.id;
+  const payload = req.body;
+  const authors = req?.user as JwtPayload;
+  const result = await BlogService.updateBlog(blogId, payload, authors);
+  const { _id, title, content, author } = result;
   sendResponse(res, {
     success: true,
     message: 'Blog update successfully',
     statusCode: StatusCodes.OK,
     data: { _id, title, content, author },
   });
-})
-const deleteBlog=catchAsync(async(req:Request,res:Response)=>{
-  const blogId=req.params.id
-  const authors = req?.user as JwtPayload
-  const result = await BlogService.deleteBlog(blogId,authors)
+});
+const deleteBlog = catchAsync(async (req: Request, res: Response) => {
+  const blogId = req.params.id;
+  const authors = req?.user as JwtPayload;
+  const result = await BlogService.deleteBlog(blogId, authors);
   // const { _id, title, content, author }=result
   sendResponse(res, {
     success: true,
@@ -53,8 +53,22 @@ const deleteBlog=catchAsync(async(req:Request,res:Response)=>{
     statusCode: StatusCodes.OK,
     data: result,
   });
-})
+});
+
+const getBlog = catchAsync(async (req:Request, res:Response) => {
+  const queryData = req?.query;
+  const result = await BlogService.getBlogs(queryData);
+  sendResponse(res, {
+    success: true,
+    message: 'Blog fetched successfully',
+    statusCode: StatusCodes.OK,
+    data: result,
+  });
+});
 
 export const BlogController = {
-  createBlog,updateBlog,deleteBlog
+  createBlog,
+  updateBlog,
+  deleteBlog,
+  getBlog,
 };

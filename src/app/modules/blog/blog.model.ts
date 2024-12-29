@@ -5,22 +5,21 @@ const blogSchema = new Schema<TBlog>({
   title: {
     type: String,
     required: true,
-    trim: true,
   },
   content: {
     type: String,
     required: true,
-    trim: true,
   },
   author: {
     type: Schema.Types.ObjectId,
-   ref:'User',
-    trim: true,
+    ref: 'User',
   },
   isPublished: {
     type: Boolean,
-    trim: true,
+    default:true
   },
+},{
+  timestamps:true
 });
 
 const Blog = model<TBlog>('Blog', blogSchema);
