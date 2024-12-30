@@ -16,7 +16,7 @@ const blockUser =catchAsync(async(req:Request,res:Response)=>{
 })
 const deleteBlog =catchAsync(async(req:Request,res:Response)=>{
     const blogId=req.params.id
-   const result= await AdminService.blockUser(blogId)
+   const result= await AdminService.deleteBlog(blogId)
     sendResponse(res,{
         success:true,
         message:'user delete succesFully',
